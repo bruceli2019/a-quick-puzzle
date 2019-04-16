@@ -22,46 +22,52 @@ you want. </p>
   Your guesses:
 </p>
 
-
+<!--we need embedded Ruby here to cycle through the user's cookies-->
 <p class="lead">
-  <span class="badge badge-success">
-    3
-  </span>
 
-  <span class="badge badge-success">
-    6
-  </span>
+  <% if @curr_guess.nil? %>
+    <p>No guesses yet!</p>
+  <% else %>
+    <!--Recall that curr_guess is an array of array of strings, we iterate through each array (each set of user guesses) -->
+    <% @curr_guess.each do |guess_set| %>
+      <!--guess is an array of strings, we iterate through each string-->
+        <% guess_set.each do |guess| %>
+          <!--check the final element of the array -- if it is "Yes", color green-->
+          <% if guess_set[3] == "Yes!" %>
+            <span class = "badge badge-success">
+              <%= guess %>
+            </span>
+          <% else %>
+            <span class = "badge badge-danger">
+              <%= guess %>
+            </span>
+          <% end %>
+        <!--display the resulting Yes or No for each array, not for each value-->
+      <% end %>
+    <br>
+    <% end %>
+  <% end %>
 
-  <span class="badge badge-success">
-    12
-  </span>
-
-  <span class="text-success">
-      Yes!
-  </span>
 </p>
 
-<p class="lead">
-  <span class="badge badge-danger">
-    3
-  </span>
-
-  <span class="badge badge-danger">
-    2
-  </span>
-
-  <span class="badge badge-danger">
-    1
-  </span>
-
-  <span class="text-danger">
-      No.
-  </span>
-</p>
 
 <p class="lead"><strong>Enter a sequence to test:</strong></p>
 
-<!-- Form for sequence goes here -->
+<form action = "/submit">
+  <label for = "first">First Number:</label>
+  <input type = "text" id = "first" name = "first">
+  
+  <label for = "second">Second Number:</label>
+  <input type = "text" id = "second" name = "second">
+  
+  <label for = "third">Third Number:</label>
+  <input type = "text" id = "third" name = "third">
+  
+  <button class = "btn btn-outline-primary">
+    Submit
+  </button>
+  
+</form>
 
 <hr>
 
